@@ -5,6 +5,7 @@ import cors from "cors"
 import universitariosRoutes from "./routes/universitariosRoutes.js"
 import medicosRoutes from "./routes/medicosRoutes.js"
 import administradorRoutes from "./routes/administradorRoutes.js"
+import horariosRoutes from "./routes/Horario/horariosRoutes.js"
 //import path from 'path'
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors())
 app.use(universitariosRoutes)
 app.use(medicosRoutes)
 app.use(administradorRoutes)
+app.use(horariosRoutes)
 
 //Server and database
 db.on("error", (e) => {

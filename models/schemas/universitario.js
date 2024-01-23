@@ -8,6 +8,8 @@ const universitarioSchema = new mongoose.Schema({
     dni: { type: String, required: true },
     carrera: { type: String, required: true },
     contrasena: { type: String, required: true }
+}, {
+    timestamps: true
 })
 
 const Universitario = mongoose.model('Universitario', universitarioSchema)

@@ -26,7 +26,7 @@ export const Registrar = ( {cambiarFormulario} ) => {
     e.preventDefault()
 
     try {
-      
+    
       const response = await axios.post(URL + '/universitarios', usuario)
       console.log('Registro exitoso: ', response.data)
     } catch (error) {
