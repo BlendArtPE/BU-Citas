@@ -1,7 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 import mongoose from "./db/db.js";
-import alumnosRoutes from "./routes/alumnosRoutes.js"
+import cors from "cors"
+import universitariosRoutes from "./routes/universitariosRoutes.js"
+import medicosRoutes from "./routes/medicosRoutes.js"
 import administradorRoutes from "./routes/administradorRoutes.js"
 //import path from 'path'
 
@@ -11,12 +13,15 @@ const db = mongoose.connection;
 
 //Settings
 app.set("appName", "Express Backend");
-app.set("port", 3000); //Cambiar luego
+app.set("port", 5173); //Cambiar luego
+
 
 //Middlewares
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(alumnosRoutes)
+app.use(cors())
+app.use(universitariosRoutes)
+app.use(medicosRoutes)
 app.use(administradorRoutes)
 
 //Server and database
