@@ -1,23 +1,22 @@
 /* Navbar.css */
 
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-    background-color: #333;
-    height: 100vh;
-    width: 150px;
-    color: #fff;
-    z-index: 1000; /* Ajusta el valor según sea necesario */
-  }
-  
-  .navbar a{
-    text-decoration: none;
-    color: #fff;
-    padding: 8px;
-    margin: 5px 0;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center; /* Alinear elementos al centro verticalmente */
+  justify-content: space-between; /* Espaciar elementos horizontalmente */
+  padding: 10px;
+  background-color: #333;
+  width: 100%; /* Ancho al 100% de la ventana del navegador */
+  color: #fff;
+  z-index: 1000;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px;
+  margin: 0 10px; /* Ajustar el margen horizontal entre elementos */
+}
