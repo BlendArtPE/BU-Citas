@@ -40,7 +40,7 @@ export const FormularioHorario = ({actualizarHorarios}) => {
 
   return (
     <div className="w-3/5 bg-gray-200 p-8">
-      <h2 className="text-3xl font-semibold mb-6">Agenda</h2>
+      <h2 className="text-3xl font-semibold mb-6">Crear horario</h2>
 
       {/* Aquí puedes agregar tus campos de formulario */}
       <form onSubmit={manejadorDeEnvio}>
