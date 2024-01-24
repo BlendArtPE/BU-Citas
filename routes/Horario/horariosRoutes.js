@@ -26,4 +26,14 @@ router.post('/horarios', async (req, res) => {
     }
 })
 
+router.delete('/horarios/:id', async (req, res) => {
+    try {
+        const horariosEliminado = await Horario.deleteOne({_id: req.params.id})
+        res.status(201).json(horariosEliminado)
+    } catch (error) {
+        console.error("Error al eliminar horario: ", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
+})
+
 export default router

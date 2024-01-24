@@ -12,7 +12,7 @@ export const Horario = () => {
     return (
         <div className="flex h-screen">
             <FormularioHorario actualizarHorarios={manejadorActualizarHorarios} />
-            <HorariosDisponibles actualizar={actualizarHorarios} />
+            <HorariosDisponibles actualizarHorarios={manejadorActualizarHorarios} actualizar={actualizarHorarios} />
         </div>
     )
 }

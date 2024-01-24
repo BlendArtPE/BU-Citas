@@ -1,7 +1,9 @@
+import { Borrar } from '../../Botones/Borrar';
+import { Editar } from '../../Botones/Editar';
 import {Iconos} from '../../Iconos/Iconos'
 import PropTypes from 'prop-types'
 
-export const CartaHorario = ({horario}) => {
+export const CartaHorario = ({horario, actualizarHorarios}) => {
   const dia = new Date(horario.dia)
   const diaFormateado = dia.toISOString().split('T')[0]
 
@@ -11,12 +13,11 @@ export const CartaHorario = ({horario}) => {
       <div className="w-full max-w-md p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-300 dark:border-gray-400">
         <div className="flex items-center justify-between mb-4">
           <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
-            Cita
+            Horario
           </h5>
           <div className="flex space-x-4">
-            
-            <Iconos tipo={"Editar"} />
-            <Iconos tipo={"Borrar"} />
+            <Editar />
+            <Borrar idHorario={horario._id} actualizarHorarios={actualizarHorarios}/>
           </div>
         </div>
 
@@ -78,5 +79,6 @@ export const CartaHorario = ({horario}) => {
 };
 
 CartaHorario.propTypes = {
-  horario: PropTypes.object.isRequired
+  horario: PropTypes.object.isRequired,
+  actualizarHorarios: PropTypes.func.isRequired
 }
