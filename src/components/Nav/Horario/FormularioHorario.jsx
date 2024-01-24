@@ -27,7 +27,6 @@ export const FormularioHorario = () => {
     e.preventDefault()
 
     try {
-
       const response = await axios.post(URL + '/horarios', horario)
       console.log('Horario exitoso: ', response.data)
     } catch (error) {
