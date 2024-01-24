@@ -1,8 +1,9 @@
 import axios from "axios";
+import PropTypes from 'prop-types'
 import { useState, useEffect } from "react";
 import { CartaHorario } from "./CartaHorario"
 
-export const HorariosDisponibles = () => {
+export const HorariosDisponibles = ({actualizar}) => {
 
     const URL = 'http://127.0.0.1:5173'
     const [horariosDisponibles, setHorariosDisponibles] = useState([])
@@ -18,7 +19,7 @@ export const HorariosDisponibles = () => {
             }
         }
         obtenerHorarios()
-    }, []);
+    }, [actualizar]);
 
     return (
         <div className="w-2/5 bg-white overflow-y-auto p-8">
@@ -33,4 +34,8 @@ export const HorariosDisponibles = () => {
         }
         </div>
     )
+}
+
+HorariosDisponibles.propTypes = {
+    actualizar: PropTypes.bool.isRequired
 }

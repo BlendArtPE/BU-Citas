@@ -1,8 +1,9 @@
 import axios from 'axios';
+import PropTypes from 'prop-types'
 import { useState } from "react";
 import { useAuth } from "../../Autorizacion/autorizacion";
 
-export const FormularioHorario = () => {
+export const FormularioHorario = ({actualizarHorarios}) => {
 
   const URL = 'http://127.0.0.1:5173'
   
@@ -28,6 +29,7 @@ export const FormularioHorario = () => {
 
     try {
       const response = await axios.post(URL + '/horarios', horario)
+      actualizarHorarios()
       console.log('Horario exitoso: ', response.data)
     } catch (error) {
       console.log(horario)
@@ -121,3 +123,7 @@ export const FormularioHorario = () => {
     </div>
   );
 };
+
+FormularioHorario.propTypes = {
+  actualizarHorarios: PropTypes.func.isRequired
+}
