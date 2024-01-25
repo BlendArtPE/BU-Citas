@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const horarioSchema = new mongoose.Schema({
     idMedico: { type: String, required: true },
-    dia: { type: Date, required: true },
+    dia: { type: String, required: true },
     horaIngreso: { type: String, required: true},
     horaSalida: { type: String, required: true},
     capacidad: { type: Number, required: true }

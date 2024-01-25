@@ -4,8 +4,8 @@ import {Iconos} from '../../Iconos/Iconos'
 import PropTypes from 'prop-types'
 
 export const CartaHorario = ({horario, actualizarHorarios}) => {
-  const dia = new Date(horario.dia)
-  const diaFormateado = dia.toISOString().split('T')[0]
+  // const dia = new Date(horario.dia)
+  // const diaFormateado = dia.toISOString().split('T')[0]
 
   return (
     <>
@@ -16,7 +16,7 @@ export const CartaHorario = ({horario, actualizarHorarios}) => {
             Horario
           </h5>
           <div className="flex space-x-4">
-            <Editar />
+            <Editar horario={horario} />
             <Borrar idHorario={horario._id} actualizarHorarios={actualizarHorarios}/>
           </div>
         </div>
@@ -37,7 +37,7 @@ export const CartaHorario = ({horario, actualizarHorarios}) => {
                   </p>
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-700 dark:text-dark">
-                  {diaFormateado}
+                  {horario.dia}
                 </div>
               </div>
             </li>

@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
 import { useState } from "react";
 import { EditarHorario } from "../Nav/Horario/EditarHorario";
 
-export const Editar = () => {
+export const Editar = ({horario}) => {
   const [abrirVentanaEditar, setAbrirVentanaEditar] = useState(false);
 
   const manejadorAbrirVentanaEditar = () => {
@@ -15,7 +16,7 @@ export const Editar = () => {
   return (
     <>
       {abrirVentanaEditar && (
-        <EditarHorario cerrarVentana={manejadorCerrarVentanaEditar} />
+        <EditarHorario horario={horario} cerrarVentana={manejadorCerrarVentanaEditar} />
       )}
 
       <svg
@@ -37,3 +38,7 @@ export const Editar = () => {
     </>
   );
 };
+
+Editar.propTypes = {
+  horario: PropTypes.object.isRequired
+}
