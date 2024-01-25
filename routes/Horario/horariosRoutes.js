@@ -26,6 +26,20 @@ router.post('/horarios', async (req, res) => {
     }
 })
 
+router.put('/horarios/:id', async (req, res) => {
+    try {
+        const horarioActualizado = await Horario.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+        res.status(200).json(horarioActualizado)
+    } catch (error) {
+        console.error("Error al actualizar horario: ", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
+})
+
 router.delete('/horarios/:id', async (req, res) => {
     try {
         const horariosEliminado = await Horario.deleteOne({_id: req.params.id})
