@@ -2,8 +2,14 @@ import { Router } from "express"
 import Medico from "../models/schemas/medico.js"
 const router = Router()
 
-router.get('/medicos', (req,res) => {
-    res.json({test: "test"})
+router.get('/medicos/:id', async (req,res) => {
+    try {
+        const obtenerMedico = await Medico.findById(req.params.id)
+        res.status(200).json({nombreCompleto: obtenerMedico.nombre + " " + obtenerMedico.apellido})
+    } catch (error) {
+        console.error("Error al buscar id:", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
 })
 
 router.post('/medicos/ingreso', async (req, res) => {

@@ -7,7 +7,6 @@ export const CartaHorario = ({horario, actualizarHorarios}) => {
 
   return (
     <>
-    
       <div className="w-full max-w-md p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-300 dark:border-gray-400">
         <div className="flex items-center justify-between mb-4">
           <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">

@@ -1,8 +1,13 @@
 import { useState } from "react"
 import { FormularioHorario } from "./FormularioHorario"
 import { HorariosDisponibles } from "./HorariosDisponibles"
+import { useAuth } from "../../Autorizacion/autorizacion"
+import { HorarioGenerales } from "./HorarioUniversitario/HorarioGenerales"
+import { Historial } from "../Historial/Historial"
 
 export const Horario = () => {
+    const autorizacion = useAuth()
+    const categoriaUsuario = autorizacion.usuario[0].categoria
     const [actualizarHorarios, setActualizarHorarios] = useState(false)
 
     const manejadorActualizarHorarios = () => {
@@ -11,8 +16,22 @@ export const Horario = () => {
 
     return (
         <div className="flex h-screen">
-            <FormularioHorario actualizarHorarios={manejadorActualizarHorarios} />
-            <HorariosDisponibles actualizarHorarios={manejadorActualizarHorarios} actualizar={actualizarHorarios} />
+            {
+                categoriaUsuario === 'Universitario' ? (
+                    <HorarioGenerales />
+                )
+                :
+                categoriaUsuario === 'Médico' ? (
+                    <>
+                    <FormularioHorario actualizarHorarios={manejadorActualizarHorarios} />
+                    <HorariosDisponibles actualizarHorarios={manejadorActualizarHorarios} actualizar={actualizarHorarios} />
+                    </>
+                ) 
+                :
+                (
+                    <Historial />
+                )
+            }
         </div>
     )
 }
