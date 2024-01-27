@@ -13,6 +13,16 @@ router.get('/horarios', async (req, res) => {
     }
 })
 
+router.get('/horarios/:id', async (req, res) => {
+    try {
+        const horarioRecuperado = await Horario.findById(req.params.id)
+        res.status(200).json(horarioRecuperado)
+    } catch (error) {
+        console.error("Error al buscar horario: ", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
+})
+
 
 router.post('/horarios', async (req, res) => {
     try {
@@ -36,6 +46,20 @@ router.put('/horarios/:id', async (req, res) => {
         res.status(200).json(horarioActualizado)
     } catch (error) {
         console.error("Error al actualizar horario: ", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
+})
+
+router.patch('/horarios/:id', async (req, res) => {
+    try {
+        const capacidadHorarioActualizada = await Horario.findByIdAndUpdate(
+            req.params.id,
+            {$set: req.body},
+            {new: true}
+        )
+        res.status(200).json({mensaje: "Capacidad actualizada", horarioCapacidad: capacidadHorarioActualizada})
+    } catch (error) {
+        console.error("Error al actualizar capacidad: ", error)
         res.status(500).json({error: "Error en el servidor"})
     }
 })
