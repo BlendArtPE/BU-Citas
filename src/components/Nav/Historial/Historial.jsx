@@ -1,7 +1,56 @@
+import { useEffect, useState } from "react";
+import { useAuth } from "../../Autorizacion/autorizacion";
+import axios from "axios";
+import { HistorialCarta } from "./HistorialCarta";
+
 export const Historial = () => {
+  const URL = "http://127.0.0.1:5173";
+  const autorizacion = useAuth();
+  const idUsuario = autorizacion.usuario[0]?.informacion?._id;
+
+  const [historialCarta, setHistorialCarta] = useState([]);
+
+  useEffect(() => {
+    const obtenerCitas = async () => {
+      try {
+        const responseCitas = await axios.get(URL + "/citas/" + idUsuario);
+        const citasYNombres = await Promise.all(
+          responseCitas.data.map(async (cita) => {
+            try {
+              const responseMedico = await axios.get(
+                URL + "/medicos/" + cita.idMedico
+              );
+              return {
+                ...cita,
+                nombre: responseMedico.data.nombreCompleto,
+              };
+            } catch (error) {
+              console.error('Error al obtener médico: ', error.responseMedico.data)
+              return {
+                ...cita,
+                nombre: 'No disponible'
+              }
+            }
+          })
+        );
+        setHistorialCarta(citasYNombres)
+      } catch (error) {
+        console.error("Error al obtener citas:", error.responseCitas.data);
+      }
+    };
+    obtenerCitas();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div>
-      
+    <div className="flex flex-wrap justify-center m-4">
+      {historialCarta.length > 0 ? (
+        historialCarta.map((cita) => (
+          <HistorialCarta key={cita._id} cita={cita} />
+        ))
+      ) : (
+        <p>Cargando citas...</p>
+      )}
     </div>
-  )
-}
+  );
+};

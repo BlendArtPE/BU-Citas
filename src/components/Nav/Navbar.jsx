@@ -24,6 +24,7 @@ export const Navbar = () => {
         <nav className="navbar">
             <NavLink style={navLinkStyles} to='/'>Inicio</NavLink>
             <NavLink style={navLinkStyles} to='/horario'>Horario</NavLink>
+            <NavLink style={navLinkStyles} to='/historial'>Historial</NavLink>
             {
                 !autorizacion.usuario ? (
                     <NavLink style={navLinkStyles} to='/ingresar'>Iniciar sesión</NavLink>

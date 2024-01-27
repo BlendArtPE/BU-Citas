@@ -5,8 +5,8 @@ import { useAuth } from "../Autorizacion/autorizacion";
 
 export const Agendar = ({ horario, cerrarVentana }) => {
   const URL = "http://127.0.0.1:5173";
-  const autorizacion = useAuth()
-  const idUsuario = autorizacion.usuario[0]?.informacion?._id
+  const autorizacion = useAuth();
+  const idUsuario = autorizacion.usuario[0]?.informacion?._id;
 
   const [cita, setCita] = useState({
     idUniversitario: idUsuario,
@@ -27,13 +27,17 @@ export const Agendar = ({ horario, cerrarVentana }) => {
   const manejadorDeEnvioCita = async (e) => {
     e.preventDefault();
     try {
-      const responseHorario = await axios.get(URL + '/horarios/'+horario._id)
-      if(responseHorario.data.capacidadActual < responseHorario.data.capacidad) {
-        const capacidadHorario = await axios.patch(URL + '/horarios/'+horario._id, {capacidadActual: responseHorario.data.capacidadActual + 1})
-        console.log(capacidadHorario)
-        const responseCita = await axios.post(URL + '/citas',cita)
-        console.log(responseCita)
-
+      const responseHorario = await axios.get(URL + "/horarios/" + horario._id);
+      if (
+        responseHorario.data.capacidadActual < responseHorario.data.capacidad
+      ) {
+        const capacidadHorario = await axios.patch(
+          URL + "/horarios/" + horario._id,
+          { capacidadActual: responseHorario.data.capacidadActual + 1 }
+        );
+        console.log(capacidadHorario);
+        const responseCita = await axios.post(URL + "/citas", cita);
+        console.log(responseCita);
       }
       console.log("Cita exitosa: ", responseHorario.data);
     } catch (error) {
@@ -46,31 +50,34 @@ export const Agendar = ({ horario, cerrarVentana }) => {
       <div className="bg-white p-8 rounded-md w-96">
         <h2 className="text-2xl font-semibold mb-4">Agendar {horario.dia}</h2>
         <form onSubmit={manejadorDeEnvioCita}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-2">
-              Hora de Ingreso
-            </label>
-            <input
-              type="time"
-              id="horaIngreso"
-              name="horaIngreso"
-              value={horario.horaIngreso}
-              readOnly
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-medium mb-2">
-              Hora de Salida
-            </label>
-            <input
-              type="time"
-              id="horaSalida"
-              name="horaSalida"
-              value={horario.horaSalida}
-              readOnly
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            />
+          <div className="mb-4 flex space-x-4 ">
+            <div className="w-full">
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Hora de Ingreso
+              </label>
+              <input
+                type="time"
+                id="horaIngreso"
+                name="horaIngreso"
+                value={horario.horaIngreso}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            
+            <div className="w-full">
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Hora de Salida
+              </label>
+              <input
+                type="time"
+                id="horaSalida"
+                name="horaSalida"
+                value={horario.horaSalida}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+              />
+            </div>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-medium mb-2">
@@ -100,12 +107,14 @@ export const Agendar = ({ horario, cerrarVentana }) => {
               rows="4" // Puedes ajustar el número de filas según tus necesidades
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
               placeholder="Ingresa tu comentario"
+              style={{ width: "100%", height: "80px", resize:"none"}}
             ></textarea>
           </div>
           <div className="flex">
-            <button 
-            type="submit"
-            className="flex-grow bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+            <button
+              type="submit"
+              className="flex-grow bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+            >
               Agendar
             </button>
             <button

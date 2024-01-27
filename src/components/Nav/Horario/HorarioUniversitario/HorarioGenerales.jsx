@@ -55,7 +55,6 @@ export const HorarioGenerales = () => {
           <HorariosAgenda
             key={horario._id}
             horario={horario}
-            
           />
         ))
       ) : (

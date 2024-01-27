@@ -6,6 +6,7 @@ import { Horario } from "./components/Nav/Horario/Horario";
 import { AuthProvider } from "./components/Autorizacion/autorizacion";
 import { Inicio } from "./components/Nav/Inicio/Inicio";
 import { AutorizacionRequerida } from "./components/Autorizacion/AutorizacionRequerida";
+import { Historial } from "./components/Nav/Historial/Historial";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="/ingresar" element={<Login />} />
           <Route path="/horario" element={<AutorizacionRequerida><Horario /></AutorizacionRequerida>} />
+          <Route path="/historial" element={<AutorizacionRequerida><Historial /></AutorizacionRequerida>} />
         </Routes>
       </AuthProvider>
     </>
