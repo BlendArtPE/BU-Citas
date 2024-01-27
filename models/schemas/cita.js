@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const universitarioSchema = new mongoose.Schema({
+const citaSchema = new mongoose.Schema({
     idUniversitario: { type: String, required: true },
     idMedico: { type: String, required: true },
     fecha: { type: Date, required: true },
@@ -11,4 +11,5 @@ const universitarioSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default universitarioSchema
+const Cita = mongoose.model('Cita', citaSchema)
+export default Cita

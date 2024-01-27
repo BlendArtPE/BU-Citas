@@ -14,7 +14,8 @@ export const FormularioHorario = ({actualizarHorarios}) => {
     dia: '', 
     horaIngreso: '', 
     horaSalida: '', 
-    capacidad: ''
+    capacidad: '',
+    capacidadActual: 0
   })
 
   const manejadorDeCambios = (e) => {

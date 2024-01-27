@@ -16,8 +16,8 @@ router.get('/horarios', async (req, res) => {
 
 router.post('/horarios', async (req, res) => {
     try {
-        const {idMedico, dia, horaIngreso, horaSalida, capacidad} = req.body
-        const horarioNuevo = new Horario({idMedico, dia, horaIngreso, horaSalida, capacidad})
+        const {idMedico, dia, horaIngreso, horaSalida, capacidad, capacidadActual} = req.body
+        const horarioNuevo = new Horario({idMedico, dia, horaIngreso, horaSalida, capacidad, capacidadActual})
         await horarioNuevo.save()
         res.status(201).json({mensaje: "Horario creado"})
     } catch (error) {

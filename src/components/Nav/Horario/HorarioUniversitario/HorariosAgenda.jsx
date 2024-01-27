@@ -22,7 +22,7 @@ export const HorariosAgenda = ({ horario }) => {
           {horario.dia}
         </h5>
         <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
-          0/{horario.capacidad}
+          {horario.capacidadActual}/{horario.capacidad}
         </h5>
       </div>
 
@@ -52,7 +52,7 @@ export const HorariosAgenda = ({ horario }) => {
                 <Iconos tipo={"Reloj"} />
               </div>
               <div className="flex-1 min-w-0 ms-4">
-                <p className="text-sm font-medium text-gray-900 truncate dark:text-dark">
+                <p className="text-sm font-medium text-gray-900 truncate dark:text-dark pr-8">
                   Hora disponible
                 </p>
               </div>
