@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Ingresar } from "./Ingresar";
 import { Registrar } from "./Registrar";
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 export const Login = () => {
     const [mostrarIniciarSesion, setMostrarIniciarSesion] = useState(true)
@@ -8,6 +10,29 @@ export const Login = () => {
     const cambiarFormulario = () => {
         setMostrarIniciarSesion(!mostrarIniciarSesion)
     }
+    const clientID = "292060742455-vr86dsqntspb8derafn4kkujsptmmeb1.apps.googleusercontent.com";
+    const [user,setUser] = useState({});
+    useEffect(() => {
+      const start = () => {
+        gapi.load('auth2', () => {
+          gapi.auth2.init({
+            clientId: clientID
+          });
+        });
+      };
+  
+      gapi.load('client:auth2', start);
+    }, []); // Con esto habilitamos los servicios de Google
+  
+    const onSuccess = (response) => {
+      setUser(response.profileObj)
+      console.log(response)
+    };
+  
+    const onFailure = () => {
+      console.log("Algo salió mal");
+    };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sección de la imagen a la izquierda */}
@@ -38,6 +63,19 @@ export const Login = () => {
             ) : (
                 <Registrar cambiarFormulario={cambiarFormulario} />
             )}
+       <div className='btn'>
+        <GoogleLogin
+          clientId={clientID}
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          buttonText="Google"
+          cookiePolicy={"single_host_policy"}
+        />
+      </div>
+      <div className={user? "profile":"hidden"}>
+        <img src={user.imageUrl} alt ="" />
+        <h3>{user.name}</h3>
+      </div>           
         </div>
       </div>
     </div>

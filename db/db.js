@@ -1,8 +1,13 @@
 import mongoose from 'mongoose'
 
-const URI = 'mongodb://127.0.0.1:27017'
-const db = '/citasMedicas'
+const URI = "mongodb+srv://pauljls:1052700520@cluster0.0b4zruk.mongodb.net/citas"
 
-mongoose.connect(URI + db)
+mongoose.connect(URI )
+.then(()=>{
+    console.log("conexion exitosa")
+})
+.catch(()=>{
+    console.log("No se pudo conectar")
+})
 
 export default mongoose

@@ -1,22 +1,92 @@
 /* Navbar.css */
-
-.navbar {
+*{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+nav {
   position: relative;
-  top: 0;
-  left: 0;
+  background-color: #000;
   display: flex;
+  height: 80px;
   align-items: center; /* Alinear elementos al centro verticalmente */
-  justify-content: space-between; /* Espaciar elementos horizontalmente */
+  justify-content: space-around; /* Espaciar elementos horizontalmente */
   padding: 10px;
-  background-color: #333;
   width: 100%; /* Ancho al 100% de la ventana del navegador */
   color: #fff;
-  z-index: 1000;
+  gap: 50px;
 }
 
-.navbar a {
+nav ul{
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+} 
+li a {
+  width: 70px;
+  cursor: pointer;
   text-decoration: none;
   color: #fff;
-  padding: 8px;
-  margin: 0 10px; /* Ajustar el margen horizontal entre elementos */
 }
+
+li a:hover{
+  width: 70px;
+  cursor: pointer;
+  color: #aaa;
+  text-decoration: none;
+}
+.hide{
+  top: 70px;
+}
+
+@media screen and (max-width: 700px){
+  #hamburguer{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: -10px;
+  }
+  .lines{
+    display: block;
+    background-color: #fff;
+    height: 2px;
+    width: 35px;
+  }
+  .lines-rotate{
+    border-radius: 5px;
+  }
+  nav{
+    position: relative;
+    padding: 15px 20px;
+  }
+  ul{
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    top: -300px;
+    right: 0;
+    background-color: #F1c40f;
+    padding: 35px 0;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0px 5px 5px rgba(128,128,128,0.836);
+    transition: 0.05;
+  }
+  li{
+    text-align: center;
+    width: 90vw;
+  }
+  li a{
+    color: rgba(12,11,11,0.836);
+    cursor: pointer;
+  }
+  li a:hover{
+    font-weight: bold;
+    color: #191e24;
+    border: none;
+    letter-spacing: 1px;
+  }
+}
+
