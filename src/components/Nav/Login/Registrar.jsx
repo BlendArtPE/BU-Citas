@@ -1,10 +1,14 @@
 import axios from 'axios';
 import PropTypes from 'prop-types'
 import { useState } from 'react';
+import { RegistrarUniversitario } from './RegistrarUniversitario';
+import { RegistrarMedico } from './RegistrarMedico';
+import { RegistrarAdministrador } from './RegistrarAdministrador';
 
 export const Registrar = ( {cambiarFormulario} ) => {
 
   const URL = 'http://127.0.0.1:5173'
+  const [tipo, setTipo] = useState('')
   const [usuario, setUsuario] = useState({
     nombre: '', 
     apellido: '', 
@@ -12,7 +16,9 @@ export const Registrar = ( {cambiarFormulario} ) => {
     edad: '', 
     dni: '', 
     carrera: '', 
-    contrasena: ''
+    especialidad: '', 
+    contrasena: '',
+    userAdm: ''
   })
 
   const manejadorDeCambios = (e) => {
@@ -22,10 +28,52 @@ export const Registrar = ( {cambiarFormulario} ) => {
     })
   }
 
+  const manejadordeTipo = (e) => {
+    setTipo(e.target.value)
+  }
+
   const manejadorDeEnvio = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(URL + '/universitarios', usuario)
+      let response
+      switch(tipo) {
+        case 'uni':
+          var datosUniversitario = {
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            correo: usuario.correo,
+            edad: usuario.edad,
+            dni: usuario.dni,
+            carrera: usuario.carrera,
+            contrasena: usuario.contrasena
+          };
+          response = await axios.post(URL + '/universitarios', datosUniversitario)
+          break
+        case 'med':
+          var datosMedico = {
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            correo: usuario.correo,
+            edad: usuario.edad,
+            dni: usuario.dni,
+            especialidad: usuario.especialidad,
+            contrasena: usuario.contrasena
+          };
+          response = await axios.post(URL + '/medicos', datosMedico )
+          break
+        case 'adm':
+          var datosAdministrador = {
+            usuario: usuario.userAdm,
+            correo: usuario.correo,
+            contrasena: usuario.contrasena
+          };
+          response = await axios.post(URL + '/administradores', datosAdministrador)
+          break
+
+        default:
+          console.log('Tipo no encontrado')
+          break
+      }
       console.log('Registro exitoso: ', response.data)
     } catch (error) {
       console.log(usuario)
@@ -39,112 +87,50 @@ export const Registrar = ( {cambiarFormulario} ) => {
     <>
       <h2 className="text-3xl font-semibold mb-6">Registrar cuenta</h2>
 
-      {/* Aquí puedes agregar tus campos de formulario */}
-      <form onSubmit={manejadorDeEnvio}>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            Nombres
-          </label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            value={usuario.nombre}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            Apellidos
-          </label>
-          <input
-            type="text"
-            id="apellido"
-            name="apellido"
-            value={usuario.apellido}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            Correo
-          </label>
-          <input
-            type="email"
-            id="correo"
-            name="correo"
-            value={usuario.correo}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            Edad
-          </label>
-          <input
-            type="number"
-            id="edad"
-            name="edad"
-            value={usuario.edad}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            DNI
-          </label>
-          <input
-            type="text"
-            id="dni"
-            name="dni"
-            value={usuario.dni}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
-
-        <div className="mb-4">
+      <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-medium mb-2"
           >
-            Carrera
+            Tipo
           </label>
           <select
-            id="carrera"
-            name="carrera"
-            value={usuario.carrera}
-            onChange={manejadorDeCambios}
+            id="tipo"
+            name="tipo"
+            value={tipo}
+            onChange={manejadordeTipo}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
           >
             <option value="">Seleccionar</option>
-            <option value="Informática">Informática</option>
-            <option value="Sistemas">Sistemas</option>
-            <option value="Educación Inicial">Educación Inicial</option>
-            {/* Agrega más opciones según sea necesario */}
+            <option value="uni">Universitario</option>
+            <option value="med">Médico</option>
+            <option value="adm">Administrador</option>
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-medium mb-2">
-            Contraseña
-          </label>
-          <input
-            type="password"
-            id="contrasena"
-            name="contrasena"
-            value={usuario.contrasena}
-            onChange={manejadorDeCambios}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          />
-        </div>
+      
+      <form onSubmit={manejadorDeEnvio}>
+        
+        {
+          tipo === 'uni' ? 
+            (
+              <RegistrarUniversitario usuario={usuario} manejadorDeCambios={manejadorDeCambios}/>
+            ) 
+          :
+          tipo === 'med' ?
+            ( 
+              <RegistrarMedico usuario={usuario} manejadorDeCambios={manejadorDeCambios}/>
+            )
+          :
+          tipo === 'adm' ?
+            ( 
+              <RegistrarAdministrador usuario={usuario} manejadorDeCambios={manejadorDeCambios}/>
+            )
+          :
+              (
+                null
+              )
+
+        }
 
         <button
           type="submit"
@@ -153,10 +139,8 @@ export const Registrar = ( {cambiarFormulario} ) => {
           Enviar
         </button>
 
-        {/* Línea divisora */}
         <div className="border-t border-gray-300 mb-4"></div>
 
-        {/* Botón de registro */}
         <button
           type="button"
           onClick={cambiarFormulario}
@@ -165,6 +149,7 @@ export const Registrar = ( {cambiarFormulario} ) => {
           Volver
         </button>
       </form>
+      
     </>
   );
 };

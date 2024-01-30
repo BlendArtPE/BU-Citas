@@ -32,11 +32,11 @@ router.post('/administradores/ingreso', async (req, res) => {
 
 router.post('/administradores', async (req, res) => {
     try {
-        const {usuario, contrasena} = req.body
-        const nuevoAdministrador = new Administrador({usuario, contrasena})
+        const {usuario, correo, contrasena} = req.body
+        const nuevoAdministrador = new Administrador({usuario, correo, contrasena})
         await nuevoAdministrador.save()
 
-        res.status(201).json({mensaje: "Usuario creado"})
+        res.status(201).json({mensaje: "Administrador creado"})
     } catch (error) {
         console.error("Error al crear usuario: ", error)
         res.status(500).json({error: "Error en el servidor"})

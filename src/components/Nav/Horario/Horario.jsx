@@ -3,7 +3,6 @@ import { FormularioHorario } from "./FormularioHorario"
 import { HorariosDisponibles } from "./HorariosDisponibles"
 import { useAuth } from "../../Autorizacion/autorizacion"
 import { HorarioGenerales } from "./HorarioUniversitario/HorarioGenerales"
-import { Historial } from "../Historial/Historial"
 
 export const Horario = () => {
     const autorizacion = useAuth()
@@ -29,7 +28,7 @@ export const Horario = () => {
                 ) 
                 :
                 (
-                    <Historial />
+                    null
                 )
             }
         </div>
