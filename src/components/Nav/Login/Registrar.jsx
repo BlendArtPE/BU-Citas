@@ -74,6 +74,7 @@ export const Registrar = ( {cambiarFormulario} ) => {
           console.log('Tipo no encontrado')
           break
       }
+      cambiarFormulario()
       console.log('Registro exitoso: ', response.data)
     } catch (error) {
       console.log(usuario)
