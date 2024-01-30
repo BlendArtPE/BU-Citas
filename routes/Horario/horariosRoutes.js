@@ -13,6 +13,16 @@ router.get('/horarios', async (req, res) => {
     }
 })
 
+router.get('/horarios/medico/:id', async (req, res) => {
+    try {
+        const citasRecuperadas = await Horario.find({idMedico: req.params.id})
+        res.status(200).json(citasRecuperadas)
+    } catch (error) {
+        console.error("Error al buscar citas: ",error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
+})
+
 router.get('/horarios/:id', async (req, res) => {
     try {
         const horarioRecuperado = await Horario.findById(req.params.id)
