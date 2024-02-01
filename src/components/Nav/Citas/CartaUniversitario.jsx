@@ -3,12 +3,14 @@ import { Iconos } from '../../Iconos/Iconos'
 import axios from 'axios'
 import { EstadoCita } from './EstadoCita';
 
-export const CartaUniversitario = ({cita}) => {
+export const CartaUniversitario = ({cita, actualizar}) => {
   
   const URL = "http://127.0.0.1:5173";
 
-  const eliminarCita = async (e) => {
-    e.preventDefault()
+  const eliminarCita = async () => {
+    //e.preventDefault()
+    console.log("Eliminando")
+    
     try {
       const responseHorario = await axios.get(URL + "/horarios/" + cita.idHorario)
       if (
@@ -22,6 +24,7 @@ export const CartaUniversitario = ({cita}) => {
       }
       const responseCita = await axios.delete(URL + "/citas/" + cita._id)
       const estadoAceptadoHistorial = await axios.patch(URL + '/historial/'+cita._id, {estado: "Eliminado-U"})
+      actualizar()
       console.log(responseCita)
       console.log(estadoAceptadoHistorial)
     } catch (error) {
@@ -99,5 +102,6 @@ export const CartaUniversitario = ({cita}) => {
 }
 
 CartaUniversitario.propTypes = {
-  cita : PropTypes.object.isRequired
+  cita : PropTypes.object.isRequired,
+  actualizar: PropTypes.func.isRequired
 }

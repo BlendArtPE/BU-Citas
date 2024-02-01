@@ -3,7 +3,7 @@ import { Iconos } from '../../Iconos/Iconos'
 import axios from 'axios';
 import { EstadoCita } from './EstadoCita';
 
-export const CartaMedico = ({cita}) => {
+export const CartaMedico = ({cita, actualizar}) => {
 
   const URL = "http://127.0.0.1:5173";
 
@@ -12,6 +12,7 @@ export const CartaMedico = ({cita}) => {
     try {
       const estadoAceptado = await axios.patch(URL + '/citas/'+cita._id, {estado: nuevoEstado})
       const estadoAceptadoHistorial = await axios.patch(URL + '/historial/'+cita._id, {estado: nuevoEstado})
+      actualizar()
       console.log(estadoAceptado)
       console.log(estadoAceptadoHistorial)
     } catch (error) {
@@ -103,5 +104,6 @@ export const CartaMedico = ({cita}) => {
 }
 
 CartaMedico.propTypes = {
-  cita : PropTypes.object.isRequired
+  cita : PropTypes.object.isRequired,
+  actualizar: PropTypes.func.isRequired
 }

@@ -5,6 +5,7 @@ import { HorariosAgenda } from "./HorariosAgenda";
 export const HorarioGenerales = () => {
   
   const URL = 'http://127.0.0.1:5173'
+  const fechaActual = new Date().toISOString().split('T')[0];
   const [horariosDisponibles, setHorariosDisponibles] = useState([])
 
   useEffect(() => {
@@ -51,7 +52,9 @@ export const HorarioGenerales = () => {
   return (
     <div className="flex flex-wrap justify-center m-4">
       {horariosDisponibles.length > 0 ? (
-        horariosDisponibles.map((horario) => (
+        horariosDisponibles
+        .filter(horario => horario.dia >= fechaActual)
+        .map((horario) => (
           <HorariosAgenda
             key={horario._id}
             horario={horario}

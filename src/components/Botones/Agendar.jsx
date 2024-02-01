@@ -27,6 +27,7 @@ export const Agendar = ({ horario, cerrarVentana }) => {
 
   const manejadorDeEnvioCita = async (e) => {
     e.preventDefault();
+    cerrarVentana()
     try {
       const responseHorario = await axios.get(URL + "/horarios/" + horario._id);
       if (
@@ -44,8 +45,9 @@ export const Agendar = ({ horario, cerrarVentana }) => {
         }
         const responseHistorial = await axios.post(URL + "/historial", historial);
         console.log(responseHistorial)
+        console.log("Cita exitosa: ", responseCita.data)
       }
-      console.log("Cita exitosa: ", responseHorario.data);
+      console.log("Horarios obtenidos: ", responseHorario.data);
     } catch (error) {
       console.error("Error al enviar cita: ", error.responseHorario.data);
     }

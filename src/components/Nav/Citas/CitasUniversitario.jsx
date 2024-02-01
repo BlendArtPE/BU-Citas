@@ -7,9 +7,15 @@ export const CitasUniversitario = () => {
   
   const URL = "http://127.0.0.1:5173";
   const autorizacion = useAuth();
-  const idUsuario = autorizacion.usuario[0]?.informacion?._id;
-
   const [citasUniversitario, setCitasUniversitario] = useState([]);
+  const [actualizarCitas, setActualizarCitas] = useState(false)
+  //const fechaActual = new Date().toISOString().split('T')[0];
+  const idUsuario = autorizacion.usuario[0]?.informacion?._id;
+  
+  const manejadorActualizarCitas = () => {
+      setActualizarCitas(!actualizarCitas)
+      console.log("Actualizando")
+  }
 
   useEffect(() => {
     const obtenerCitas = async () => {
@@ -41,13 +47,15 @@ export const CitasUniversitario = () => {
     };
     obtenerCitas();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [actualizarCitas]);
 
   return (
     <div className="flex flex-wrap justify-center m-4">
       {citasUniversitario.length > 0 ? (
-        citasUniversitario.map((cita) => (
-          <CartaUniversitario key={cita._id} cita={cita} />
+        citasUniversitario
+        //.filter(cita => cita.dia >= fechaActual)
+        .map((cita) => (
+          <CartaUniversitario key={cita._id} cita={cita} actualizar={manejadorActualizarCitas} />
         ))
       ) : (
         <p>Cargando citas...</p>
