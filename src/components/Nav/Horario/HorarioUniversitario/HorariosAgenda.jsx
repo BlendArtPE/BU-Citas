@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Iconos } from "../../../Iconos/Iconos";
 import { Agendar } from "../../../Botones/Agendar";
 
-export const HorariosAgenda = ({ horario }) => {
+export const HorariosAgenda = ({ horario, actualizar }) => {
 
   const [abrirVentanaAgendar, setAbrirVentanaAgendar] = useState(false);
 
@@ -70,7 +70,7 @@ export const HorariosAgenda = ({ horario }) => {
           Agendar
         </button>
         {abrirVentanaAgendar && (
-        <Agendar horario={horario} cerrarVentana={manejadorCerrarVentanaAgendar} />
+        <Agendar horario={horario} cerrarVentana={manejadorCerrarVentanaAgendar} actualizar={actualizar} />
       )}
       </div>
     </div>
@@ -79,4 +79,5 @@ export const HorariosAgenda = ({ horario }) => {
 
 HorariosAgenda.propTypes = {
   horario: PropTypes.object.isRequired,
+  actualizar: PropTypes.func.isRequired
 };

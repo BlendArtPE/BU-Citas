@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useAuth } from "../Autorizacion/autorizacion";
 
-export const Agendar = ({ horario, cerrarVentana }) => {
+export const Agendar = ({ horario, cerrarVentana, actualizar }) => {
   const URL = "http://127.0.0.1:5173";
   const autorizacion = useAuth();
   const idUsuario = autorizacion.usuario[0]?.informacion?._id;
@@ -27,7 +27,7 @@ export const Agendar = ({ horario, cerrarVentana }) => {
 
   const manejadorDeEnvioCita = async (e) => {
     e.preventDefault();
-    cerrarVentana()
+    
     try {
       const responseHorario = await axios.get(URL + "/horarios/" + horario._id);
       if (
@@ -46,6 +46,8 @@ export const Agendar = ({ horario, cerrarVentana }) => {
         const responseHistorial = await axios.post(URL + "/historial", historial);
         console.log(responseHistorial)
         console.log("Cita exitosa: ", responseCita.data)
+        actualizar()
+        cerrarVentana()
       }
       console.log("Horarios obtenidos: ", responseHorario.data);
     } catch (error) {
@@ -141,4 +143,5 @@ export const Agendar = ({ horario, cerrarVentana }) => {
 Agendar.propTypes = {
   horario: PropTypes.object.isRequired,
   cerrarVentana: PropTypes.func.isRequired,
+  actualizar: PropTypes.func.isRequired
 };
