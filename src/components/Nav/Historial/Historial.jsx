@@ -7,25 +7,35 @@ export const Historial = () => {
   const URL = "http://127.0.0.1:5173";
   const autorizacion = useAuth();
   const idUsuario = autorizacion.usuario[0]?.informacion?._id;
+  const categoriaUsuario = autorizacion.usuario[0]?.categoria
 
   const [historialCarta, setHistorialCarta] = useState([]);
 
   useEffect(() => {
     const obtenerCitas = async () => {
+      let ruta = categoriaUsuario === 'Médico' ? URL + "/citas/medico/" + idUsuario : URL + "/citas/universitario/" + idUsuario
       try {
-        const responseCitas = await axios.get(URL + "/citas/" + idUsuario);
+        const responseCitas = await axios.get(ruta);
+        console.log(responseCitas)
         const citasYNombres = await Promise.all(
           responseCitas.data.map(async (cita) => {
             try {
-              const responseMedico = await axios.get(
-                URL + "/medicos/" + cita.idMedico
-              );
+              let responseUsuario 
+              if (categoriaUsuario === 'Médico' ) {
+                responseUsuario = await axios.get(
+                  URL + "/universitarios/" + cita.idUniversitario
+                );
+              } else {
+                responseUsuario = await axios.get(
+                  URL + "/medicos/" + cita.idMedico
+                );
+              }
               return {
                 ...cita,
-                nombre: responseMedico.data.nombreCompleto,
+                nombre: responseUsuario.data.nombreCompleto,
               };
             } catch (error) {
-              console.error('Error al obtener médico: ', error.responseMedico.data)
+              console.error('Error al obtener médico: ', error.responseUsuario.data)
               return {
                 ...cita,
                 nombre: 'No disponible'

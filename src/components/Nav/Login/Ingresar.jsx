@@ -24,7 +24,7 @@ export const Ingresar = ( {cambiarFormulario} ) => {
       [e.target.name]: e.target.value,
     })
   }
-
+  
   const manejadorDeInicio = async (e) => {
     e.preventDefault()
     try {

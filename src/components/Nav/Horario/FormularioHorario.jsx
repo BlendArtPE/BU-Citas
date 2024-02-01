@@ -2,12 +2,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types'
 import { useState } from "react";
 import { useAuth } from "../../Autorizacion/autorizacion";
+import { useNavigate } from 'react-router-dom';
 
 export const FormularioHorario = ({actualizarHorarios}) => {
 
   const URL = 'http://127.0.0.1:5173'
   
   const autorizacion = useAuth()
+  const navegacion = useNavigate()
   const idUsuario = autorizacion.usuario[0]?.informacion?._id
   const [horario, setHorario] = useState({
     idMedico: idUsuario, 
@@ -103,23 +105,22 @@ export const FormularioHorario = ({actualizarHorarios}) => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
-        >
-          Enviar
-        </button>
-
-        {/* Línea divisora */}
-        <div className="border-t border-gray-300 mb-4"></div>
-
-        {/* Botón de registro */}
-        <button
-          type="button"
-          className="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none"
-        >
-          Volver
-        </button>
+        <div className="flex">
+          <button
+            type="submit"
+            className="flex-1 bg-blue-500 text-white py-2 w-full rounded-md hover:bg-blue-600 focus:outline-none"
+          >
+            Enviar
+          </button>
+          <div className="mx-2" />
+          <button
+            type="button"
+            onClick={() => { navegacion('/'); }}
+            className="flex-1 bg-green-500 text-white py-2 w-full rounded-md hover:bg-green-600 focus:outline-none"
+          >
+            Volver
+          </button>
+        </div>
       </form>
     </div>
   );

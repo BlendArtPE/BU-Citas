@@ -2,8 +2,14 @@ import { Router } from "express"
 import Universitario from "../models/schemas/universitario.js"
 const router = Router()
 
-router.get('/universitarios', (req,res) => {
-    res.json({test: "test"})
+router.get('/universitarios/:id', async (req,res) => {
+    try {
+        const obtenerUniversitario = await Universitario.findById(req.params.id)
+        res.status(200).json({nombreCompleto: obtenerUniversitario.nombre + " " + obtenerUniversitario.apellido})
+    } catch (error) {
+        console.error("Error al buscar id:", error)
+        res.status(500).json({error: "Error en el servidor"})
+    }
 })
 
 router.post('/universitarios/ingreso', async (req, res) => {

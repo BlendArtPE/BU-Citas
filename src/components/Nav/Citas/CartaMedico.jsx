@@ -1,11 +1,21 @@
-import PropTypes from "prop-types";
-import { Iconos } from "../../Iconos/Iconos";
-import { useAuth } from "../../Autorizacion/autorizacion";
-import { EstadoCita } from "../Citas/EstadoCita";
-export const HistorialCarta = ({cita}) => {
+import PropTypes from 'prop-types'
+import { Iconos } from '../../Iconos/Iconos'
+import axios from 'axios';
+import { EstadoCita } from './EstadoCita';
 
-  const autorizacion = useAuth();
-  const categoriaUsuario = autorizacion.usuario[0]?.categoria
+export const CartaMedico = ({cita}) => {
+
+  const URL = "http://127.0.0.1:5173";
+
+  const manejadorAceptarCita = async (e, nuevoEstado) => {
+    e.preventDefault()
+    try {
+      const estadoAceptado = await axios.patch(URL + '/citas/'+cita._id, {estado: nuevoEstado})
+      console.log(estadoAceptado)
+    } catch (error) {
+      console.error("No se ha podido aceptar: ", error)
+    }
+  }
 
   return (
     <div className="w-full max-h-64 max-w-xl p-4 mb-4 mr-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-300 dark:border-gray-400">
@@ -13,9 +23,27 @@ export const HistorialCarta = ({cita}) => {
         <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
           {cita.dia}
         </h5>
-        {/* <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
-          asd
-        </h5> */}
+        <div className="flex items-center">
+  <h5 className="text-2xl font-bold leading-none flex items-center">
+    <button 
+    onClick={(e) => manejadorAceptarCita(e,"Aceptado")}
+    className="mr-4 bg-green-600 hover:bg-green-700 text-white p-1 rounded-3xl dark:text-dark"
+    title='Aceptar'
+    >
+    <Iconos tipo="Aceptar"  />
+    </button>
+
+    <button 
+    onClick={(e) => manejadorAceptarCita(e,"Cancelado")}
+    className="bg-red-600 hover:bg-red-700 text-white p-1 rounded-3xl dark:text-dark"
+    title='Cancelar'
+    >
+    <Iconos tipo="Cancelar" />
+    </button>
+  </h5>
+</div>
+
+
       </div>
 
       <div className="flow-root">
@@ -30,7 +58,7 @@ export const HistorialCarta = ({cita}) => {
               </div>
               <div className="flex-1 min-w-0 ms-4">
                 <p className="text-sm font-medium text-gray-900 truncate dark:text-dark">
-                  {categoriaUsuario === 'Médico' ? 'Universitario' : 'Doctor'}
+                  Universitario
                 </p>
               </div>
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-dark">
@@ -72,7 +100,6 @@ export const HistorialCarta = ({cita}) => {
   )
 }
 
-HistorialCarta.propTypes = {
-    cita: PropTypes.object.isRequired
-  };
-  
+CartaMedico.propTypes = {
+  cita : PropTypes.object.isRequired
+}

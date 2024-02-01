@@ -11,6 +11,7 @@ export const Agendar = ({ horario, cerrarVentana }) => {
   const [cita, setCita] = useState({
     idUniversitario: idUsuario,
     idMedico: horario.idMedico,
+    idHorario: horario._id,
     dia: horario.dia,
     estado: "Revisión",
     tipo: "Consulta",

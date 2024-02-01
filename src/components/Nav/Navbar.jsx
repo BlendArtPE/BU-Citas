@@ -9,7 +9,7 @@ export const Navbar = () => {
     const navLinkStyles = ({ isActive }) => {
         return {
             fontWeight: isActive ? 'bold' : 'normal',
-            textDecoration: isActive ? 'none' : 'underline'
+            textDecoration: isActive ? 'none' : 'none'
         }
     }
 
@@ -18,12 +18,11 @@ export const Navbar = () => {
         navegacion('/')
     }
 
-    
-
     return (
         <nav className="navbar">
             <NavLink style={navLinkStyles} to='/'>Inicio</NavLink>
             <NavLink style={navLinkStyles} to='/horario'>Horario</NavLink>
+            <NavLink style={navLinkStyles} to='/citas'>Citas</NavLink>
             <NavLink style={navLinkStyles} to='/historial'>Historial</NavLink>
             {
                 !autorizacion.usuario ? (

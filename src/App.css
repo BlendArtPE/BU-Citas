@@ -5,11 +5,11 @@
   top: 0;
   left: 0;
   display: flex;
-  align-items: center; /* Alinear elementos al centro verticalmente */
-  justify-content: space-between; /* Espaciar elementos horizontalmente */
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
-  background-color: #333;
-  width: 100%; /* Ancho al 100% de la ventana del navegador */
+  background-color: #001f3f; /* Cambié el color a azul oscuro */
+  width: 100%;
   color: #fff;
   z-index: 1000;
 }
@@ -18,5 +18,35 @@
   text-decoration: none;
   color: #fff;
   padding: 8px;
-  margin: 0 10px; /* Ajustar el margen horizontal entre elementos */
+  margin: 0 10px;
+  transition: background-color 0.3s, color 0.3s; /* Transición para el cambio de color de fondo y texto */
+  border-radius: 5px; /* Bordes redondeados para los enlaces */
+  background-color: transparent; /* Fondo inicial transparente */
+}
+
+.navbar a:hover {
+  background-color: #003366; /* Color más claro al hacer hover */
+  color: #fff; /* Cambio de color de texto al hacer hover */
+}
+
+.navbar a.active {
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #003366; /* Color de fondo para el enlace activo */
+  color: #fff; /* Color de texto para el enlace activo */
+}
+
+/* Agregamos estilos para la imagen */
+body {
+  margin: 0;
+}
+
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover; /* Ajustar imagen al contenedor */
+  z-index: -1; /* Detrás del contenido */
 }
