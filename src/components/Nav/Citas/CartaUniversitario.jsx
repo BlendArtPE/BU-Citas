@@ -21,7 +21,9 @@ export const CartaUniversitario = ({cita}) => {
         console.log(capacidadHorario)
       }
       const responseCita = await axios.delete(URL + "/citas/" + cita._id)
+      const estadoAceptadoHistorial = await axios.patch(URL + '/historial/'+cita._id, {estado: "Eliminado-U"})
       console.log(responseCita)
+      console.log(estadoAceptadoHistorial)
     } catch (error) {
       console.error("Error al eliminar cita: ")
     }

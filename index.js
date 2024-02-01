@@ -7,6 +7,7 @@ import medicosRoutes from "./routes/medicosRoutes.js"
 import administradorRoutes from "./routes/administradorRoutes.js"
 import horariosRoutes from "./routes/Horario/horariosRoutes.js"
 import citasRoutes from "./routes/Citas/citasRoutes.js"
+import historialRoutes from "./routes/Historial/historialRoutes.js"
 //import path from 'path'
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(medicosRoutes)
 app.use(administradorRoutes)
 app.use(horariosRoutes)
 app.use(citasRoutes)
+app.use(historialRoutes)
 
 //Server and database
 db.on("error", (e) => {

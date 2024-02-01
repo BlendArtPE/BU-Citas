@@ -21,14 +21,16 @@ export const Navbar = () => {
     return (
         <nav className="navbar">
             <NavLink style={navLinkStyles} to='/'>Inicio</NavLink>
-            <NavLink style={navLinkStyles} to='/horario'>Horario</NavLink>
-            <NavLink style={navLinkStyles} to='/citas'>Citas</NavLink>
-            <NavLink style={navLinkStyles} to='/historial'>Historial</NavLink>
             {
                 !autorizacion.usuario ? (
                     <NavLink style={navLinkStyles} to='/ingresar'>Iniciar sesión</NavLink>
-                ) : (
-                    <NavLink style={navLinkStyles} onClick={manejarSalida}>Salir</NavLink>
+                    ) : (
+                        <>
+                        <NavLink style={navLinkStyles} to='/horario'>Horario</NavLink>
+                        <NavLink style={navLinkStyles} to='/citas'>Citas</NavLink>
+                        <NavLink style={navLinkStyles} to='/historial'>Historial</NavLink>
+                        <NavLink style={navLinkStyles} onClick={manejarSalida}>Salir</NavLink>
+                    </>
                 )
             }
         </nav>

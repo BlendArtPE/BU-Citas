@@ -8,8 +8,10 @@ export const Borrar = ({ idHorario, actualizarHorarios }) => {
     try {
       const response = await axios.delete(URL + "/horarios/"+ idHorario);
       const responseCitas = await axios.delete(URL + "/citas/horario/"+idHorario)
+      const estadoAceptadoHistoriales = await axios.patch(URL + '/historiales/'+idHorario, {estado: "Eliminado-M"})
       console.log("Horario borrado: ", response.data);
       console.log("Citas borradas:", responseCitas.data)
+      console.log("Historiales actualizados: ", estadoAceptadoHistoriales.data)
       actualizarHorarios()
     } catch (error) {
       console.error("Error al eliminar horario: ", error.response.data);

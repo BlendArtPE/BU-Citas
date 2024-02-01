@@ -11,7 +11,9 @@ export const CartaMedico = ({cita}) => {
     e.preventDefault()
     try {
       const estadoAceptado = await axios.patch(URL + '/citas/'+cita._id, {estado: nuevoEstado})
+      const estadoAceptadoHistorial = await axios.patch(URL + '/historial/'+cita._id, {estado: nuevoEstado})
       console.log(estadoAceptado)
+      console.log(estadoAceptadoHistorial)
     } catch (error) {
       console.error("No se ha podido aceptar: ", error)
     }

@@ -13,12 +13,12 @@ export const Historial = () => {
 
   useEffect(() => {
     const obtenerCitas = async () => {
-      let ruta = categoriaUsuario === 'Médico' ? URL + "/citas/medico/" + idUsuario : URL + "/citas/universitario/" + idUsuario
+      let ruta = categoriaUsuario === 'Médico' ? URL + "/historial/medico/" + idUsuario : URL + "/historial/universitario/" + idUsuario
       try {
-        const responseCitas = await axios.get(ruta);
-        console.log(responseCitas)
+        const responseHistoriales = await axios.get(ruta);
+        console.log(responseHistoriales)
         const citasYNombres = await Promise.all(
-          responseCitas.data.map(async (cita) => {
+          responseHistoriales.data.map(async (cita) => {
             try {
               let responseUsuario 
               if (categoriaUsuario === 'Médico' ) {
@@ -35,7 +35,7 @@ export const Historial = () => {
                 nombre: responseUsuario.data.nombreCompleto,
               };
             } catch (error) {
-              console.error('Error al obtener médico: ', error.responseUsuario.data)
+              console.error('Error al obtener médico o universitario: ', error.responseUsuario.data)
               return {
                 ...cita,
                 nombre: 'No disponible'
@@ -45,7 +45,7 @@ export const Historial = () => {
         );
         setHistorialCarta(citasYNombres)
       } catch (error) {
-        console.error("Error al obtener citas:", error.responseCitas.data);
+        console.error("Error al obtener citas:", error.responseHistoriales.data);
       }
     };
     obtenerCitas();
@@ -55,11 +55,11 @@ export const Historial = () => {
   return (
     <div className="flex flex-wrap justify-center m-4">
       {historialCarta.length > 0 ? (
-        historialCarta.map((cita) => (
-          <HistorialCarta key={cita._id} cita={cita} />
+        historialCarta.map((historial) => (
+          <HistorialCarta key={historial._id} historial={historial} />
         ))
       ) : (
-        <p>Cargando citas...</p>
+        <p>Cargando historial...</p>
       )}
     </div>
   );

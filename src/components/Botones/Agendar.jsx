@@ -38,7 +38,12 @@ export const Agendar = ({ horario, cerrarVentana }) => {
         );
         console.log(capacidadHorario);
         const responseCita = await axios.post(URL + "/citas", cita);
-        console.log(responseCita);
+        const historial = {
+          ...cita,
+          idCita: responseCita.data._id
+        }
+        const responseHistorial = await axios.post(URL + "/historial", historial);
+        console.log(responseHistorial)
       }
       console.log("Cita exitosa: ", responseHorario.data);
     } catch (error) {

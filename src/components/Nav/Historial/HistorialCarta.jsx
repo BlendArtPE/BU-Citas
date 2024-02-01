@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Iconos } from "../../Iconos/Iconos";
 import { useAuth } from "../../Autorizacion/autorizacion";
-import { EstadoCita } from "../Citas/EstadoCita";
-export const HistorialCarta = ({cita}) => {
+import { EstadoCita } from "../Citas/EstadoCita"
+export const HistorialCarta = ({historial}) => {
 
   const autorizacion = useAuth();
   const categoriaUsuario = autorizacion.usuario[0]?.categoria
@@ -11,7 +11,7 @@ export const HistorialCarta = ({cita}) => {
     <div className="w-full max-h-64 max-w-xl p-4 mb-4 mr-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-300 dark:border-gray-400">
       <div className="flex items-center justify-between mb-4">
         <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
-          {cita.dia}
+          {historial.dia}
         </h5>
         {/* <h5 className="text-2xl font-bold leading-none text-gray-900 dark:text-dark">
           asd
@@ -34,7 +34,7 @@ export const HistorialCarta = ({cita}) => {
                 </p>
               </div>
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-dark">
-                {cita.nombre}
+                {historial.nombre}
               </div>
             </div>
           </li>
@@ -48,7 +48,7 @@ export const HistorialCarta = ({cita}) => {
                   Estado
                 </p>
               </div>
-              <EstadoCita cita={cita}/>
+              <EstadoCita cita={historial}/>
             </div>
           </li>
           <li className="py-3 sm:py-4">
@@ -62,7 +62,7 @@ export const HistorialCarta = ({cita}) => {
                 </p>
               </div>
               <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-dark">
-                {cita.comentario}
+                {historial.comentario}
               </div>
             </div>
           </li>
@@ -73,6 +73,6 @@ export const HistorialCarta = ({cita}) => {
 }
 
 HistorialCarta.propTypes = {
-    cita: PropTypes.object.isRequired
+    historial: PropTypes.object.isRequired
   };
   
