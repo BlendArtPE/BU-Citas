@@ -8,6 +8,7 @@ import { Inicio } from "./components/Nav/Inicio/Inicio";
 import { AutorizacionRequerida } from "./components/Autorizacion/AutorizacionRequerida";
 import { Historial } from "./components/Nav/Historial/Historial";
 import { Citas } from "./components/Nav/Citas/Citas";
+import { PaginaNoEncontrada } from "./components/Nav/Login/PaginaNoEncontrada";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <AuthProvider>
         <Navbar />
         <Routes>
+          <Route path="*" element={<PaginaNoEncontrada />} />
           <Route path="/" element={<Inicio />} />
           <Route path="/ingresar" element={<Login />} />
           <Route path="/horario" element={<AutorizacionRequerida><Horario /></AutorizacionRequerida>} />

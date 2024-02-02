@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react';
 import { useAuth } from '../../Autorizacion/autorizacion';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ErrorIngresar } from './ErrorIngresar';
 
 export const Ingresar = ( {cambiarFormulario} ) => {
 
@@ -11,7 +12,7 @@ export const Ingresar = ( {cambiarFormulario} ) => {
   const navegacion = useNavigate()
   const localizacion = useLocation()
   const rutaRedirijida = localizacion.state?.path || '/'
-
+  const [mostrarPopup, setMostrarPopup] = useState(false);
 
   const [usuario, setUsuario] = useState({
     correo: '', 
@@ -25,6 +26,10 @@ export const Ingresar = ( {cambiarFormulario} ) => {
     })
   }
   
+  const cerrarPopup = () => {
+    setMostrarPopup(false);
+  };
+
   const manejadorDeInicio = async (e) => {
     e.preventDefault()
     try {
@@ -41,7 +46,7 @@ export const Ingresar = ( {cambiarFormulario} ) => {
         autorizacion.ingresar(usuarioFormateado)
         navegacion(rutaRedirijida, {replace: true})
       } else{
-        console.log('Usuario no encontrado')
+        setMostrarPopup(true);
       }
     } catch (error) {
       console.error('Error al buscar: ', error.response.data)
@@ -104,6 +109,7 @@ export const Ingresar = ( {cambiarFormulario} ) => {
         >
           Registrarse
         </button>
+        {mostrarPopup && <ErrorIngresar onClose={cerrarPopup} />}
       </form>
     </>
   );
